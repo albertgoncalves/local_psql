@@ -6,12 +6,12 @@ from pandas import read_sql
 from sqlalchemy import create_engine
 
 
-def url(kwargs):
+def uri(kwargs):
     return "postgresql://{user}:{password}@{host}:{port}/{db}".format(**kwargs)
 
 
 def connect(kwargs):
-    return create_engine(url(kwargs)).connect()
+    return create_engine(uri(kwargs)).connect()
 
 
 def try_con(credentials):
