@@ -2,5 +2,6 @@
 !.gitignore
 !shell.nix
 !.shellhook
-!database
+!server
 !*.py
+!scripts/
