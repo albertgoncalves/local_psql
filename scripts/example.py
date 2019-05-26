@@ -16,11 +16,12 @@ def connect(kwargs):
 
 def try_con(credentials):
     try:
-        return (connect({k: environ[v] for (k, v) in credentials}), None)
-    except Exception as e:
-        return (None, e)
-    finally:
+        (con, error) = \
+            (connect({k: environ[v] for (k, v) in credentials}), None)
         print("ESTABLISHED CONNECTION")
+    except Exception as e:
+        (con, error) = (None, e)
+    return (con, error)
 
 
 def try_effects(f, con):
@@ -36,7 +37,7 @@ def try_effects(f, con):
 
 
 def pipeline(f, credentials):
-    con, error = try_con(credentials)
+    (con, error) = try_con(credentials)
     if not error:
         error = try_effects(f, con)
     if error:
