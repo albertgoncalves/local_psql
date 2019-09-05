@@ -8,6 +8,7 @@ with pkgs; mkShell {
             psycopg2
             sqlalchemy
         ]))
+        glibcLocales
         postgresql
         shellcheck
     ];
