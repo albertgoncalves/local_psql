@@ -9,6 +9,7 @@ with pkgs; mkShell {
             sqlalchemy
         ]))
         postgresql
+        shellcheck
     ];
     shellHook = ''
         . .env

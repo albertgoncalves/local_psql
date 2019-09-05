@@ -46,7 +46,11 @@ def pipeline(f, credentials):
 
 def main():
     def effects(con):
-        sql = "SELECT * FROM t1;"
+        sql = """
+            CREATE TABLE IF NOT EXISTS t1 (i INTEGER);
+            INSERT INTO t1(i) VALUES(1);
+            SELECT * FROM t1;
+        """
         data = read_sql(sql, con)
         print("COMPLETED QUERY\n")
         print(data)
@@ -55,8 +59,8 @@ def main():
         ("user", "PGUSER"),
         ("host", "PGHOST"),
         ("port", "PGPORT"),
-        ("db", "PGDB"),
-        ("password", "PGPASS"),
+        ("db", "PGDATABASE"),
+        ("password", "PGPASSWORD"),
     }
     pipeline(effects, credentials)
 
