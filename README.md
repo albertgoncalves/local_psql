@@ -26,11 +26,12 @@ $ nix-shell
 
 Note
 ---
-If `$ ./server start` yields the following error (found in check `path/to/local_psql/logfile`):
+If `$ ./server start` yields the following error (found in `path/to/local_psql/logfile`)
 ```
 FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": Permission denied
 LOG:  database system is shut down
 ```
+run these two commands
 ```
 $ sudo mkdir /var/run/postgresql
 $ sudo chmod a+w /var/run/postgresql
