@@ -1,15 +1,14 @@
-{ pkgs ? import <nixpkgs> {} }:
-with pkgs; mkShell {
-    name = "Psql";
+with import <nixpkgs> {};
+mkShell {
     buildInputs = [
-        (python37.withPackages(ps: with ps; [
+        (python3.withPackages(ps: with ps; [
             flake8
             pandas
             psycopg2
             sqlalchemy
         ]))
         glibcLocales
-        postgresql
+        postgresql_14
         shellcheck
     ];
     shellHook = ''
