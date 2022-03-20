@@ -2,6 +2,10 @@
 
 db="$WD/db"
 
+if [ ! -d "$db" ]; then
+    mkdir "$db"
+fi
+
 if [ -n "$1" ]; then
     if [ "$1" == "create" ]; then
         initdb "$db"
