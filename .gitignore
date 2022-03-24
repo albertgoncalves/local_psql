@@ -4,6 +4,7 @@
 !shell.nix
 !.shellhook
 !.clang-format
-!server
 !src/
 !*.cpp
+!server
+!main
