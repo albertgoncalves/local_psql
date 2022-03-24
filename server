@@ -6,16 +6,17 @@ if [ ! -d "$db" ]; then
     mkdir "$db"
 fi
 
-if [ -n "$1" ]; then
-    if [ "$1" == "create" ]; then
-        initdb "$db"
-    elif [ "$1" == "start" ]; then
-        pg_ctl -D "$db" -l logfile start
-    elif [ "$1" == "stop" ]; then
-        pg_ctl -D "$db" stop
-    elif [ "$1" == "status" ]; then
-        pg_ctl -D "$db" status
-    elif [ "$1" == "list" ]; then
-        psql -l
-    fi
-fi
+case "$1" in
+    "create")
+        initdb "$db";;
+    "start")
+        pg_ctl -D "$db" -l "$WD/db_log" "start";;
+    "stop")
+        pg_ctl -D "$db" "stop";;
+    "status")
+        pg_ctl -D "$db" "status";;
+    "list")
+        psql -l;;
+    *)
+        ;;
+esac
