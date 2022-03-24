@@ -3,6 +3,7 @@
 !README.md
 !shell.nix
 !.shellhook
+!.clang-format
 !server
-!*.py
-!scripts/
+!src/
+!*.cpp

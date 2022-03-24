@@ -1,17 +1,14 @@
 with import <nixpkgs> {};
-mkShell {
+mkShell.override { stdenv = llvmPackages_14.stdenv; } {
     buildInputs = [
-        (python3.withPackages(ps: with ps; [
-            flake8
-            pandas
-            psycopg2
-            sqlalchemy
-        ]))
         glibcLocales
+        mold
         postgresql_14
         shellcheck
     ];
     shellHook = ''
+        export PATH_PG=${postgresql_14}
+        export PATH_LIBPG=${postgresql_14.lib}
         . .env
         . .shellhook
     '';
