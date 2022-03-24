@@ -36,3 +36,13 @@ run these two commands
 $ sudo mkdir /var/run/postgresql
 $ sudo chmod a+w /var/run/postgresql
 ```
+---
+To server on a LAN, adjust `path/to/local_psql/db/postgresql.conf` (see [https://www.postgresql.org/docs/current/runtime-config-connection.html#GUC-LISTEN-ADDRESSES]().)
+```
+listen_addresses = '*'
+```
+then you'll need add an entry to `path/to/local_psql/db/pg_hba.conf` (see [https://stackoverflow.com/a/22083740]())
+```
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+host    all             all             192.168.1.0/24          trust
+```
