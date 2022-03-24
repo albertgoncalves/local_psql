@@ -13,6 +13,9 @@ typedef double   f64;
 #define OK    0
 #define ERROR 1
 
+#define TEXT   0
+#define BINARY 1
+
 #define null nullptr
 
 #define STATIC_ASSERT(condition) static_assert(condition, "!(" #condition ")")
@@ -82,8 +85,8 @@ i32 main() {
         };
         // NOTE: See `SELECT oid, typname FROM pg_type;`.
         Oid       types[] = {700, 700};
-        i32       lengths[] = {sizeof(Value32), sizeof(Value32)};
-        i32       formats[] = {1, 1};
+        i32       lengths[] = {sizeof(f32), sizeof(f32)};
+        i32       formats[] = {BINARY, BINARY};
         PGresult* res = PQexecParams(conn,
                                      "INSERT INTO t (x) VALUES ($1), ($2);",
                                      2,
@@ -91,7 +94,7 @@ i32 main() {
                                      values,
                                      lengths,
                                      formats,
-                                     0);
+                                     TEXT);
         CHECK_RES(conn, res, PGRES_COMMAND_OK);
         PQclear(res);
     }
@@ -103,7 +106,7 @@ i32 main() {
                                      null,
                                      null,
                                      null,
-                                     1);
+                                     BINARY);
         CHECK_RES(conn, res, PGRES_TUPLES_OK);
         printf("%5s | %5s\n", "id", "x");
         printf("------+------\n");
