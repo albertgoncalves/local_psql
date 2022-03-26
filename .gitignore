@@ -5,6 +5,6 @@
 !.shellhook
 !.clang-format
 !src/
-!*.cpp
+!*.c
 !server
 !main
