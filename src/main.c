@@ -75,8 +75,9 @@ i32 main() {
     {
         // NOTE: See `https://www.postgresql.org/docs/current/libpq-exec.html`.
         // NOTE: See `https://gist.github.com/ictlyh/12fe787ec265b33fd7e4b0bd08bc27cb`.
-        u32 x = htonf(0.01f);
-        u32 y = htonf(-1.23f);
+        u32 x = htonf(0.00001f);
+        // NOTE: See `https://www.h-schmidt.net/FloatConverter/IEEE754.html`.
+        u32 y = htonf(-98764.03125f);
         // NOTE: See `SELECT oid, typname FROM pg_type;`.
         Oid         types[] = {OID_F32, OID_F32};
         const char* values[] = {(const char*)(&x), (const char*)(&y)};
@@ -103,12 +104,12 @@ i32 main() {
                                      NULL,
                                      BINARY);
         CHECK_RES(conn, res, PGRES_TUPLES_OK);
-        printf("%5s | %5s\n", "id", "x");
-        printf("------+------\n");
+        printf("%5s | %13s\n", "id", "x");
+        printf("------+--------------\n");
         for (i32 i = 0; i < PQntuples(res); ++i) {
             i32 id = read_i32(res, i, "id");
             f32 x = read_f32(res, i, "x");
-            printf("%5d | %5.2f\n", id, (f64)x);
+            printf("%5d | %13.5f\n", id, (f64)x);
         }
         PQclear(res);
     }
